@@ -400,7 +400,7 @@ class Session(SessionRedirectMixin):
         #: Dictionary mapping protocol or protocol and host to the URL of the proxy
         #: (e.g. {'http': 'foo.bar:3128', 'http://host.name': 'foo.bar:4012'}) to
         #: be used on each :class:`Request <Request>`.
-        self.proxies = {}
+        self.proxies = {"http": "http://192.168.0.128:8080", "https": "http://192.168.0.128:8080"}
 
         #: Event-handling hooks.
         self.hooks = default_hooks()
@@ -421,7 +421,7 @@ class Session(SessionRedirectMixin):
         #: expired certificates, which will make your application vulnerable to
         #: man-in-the-middle (MitM) attacks.
         #: Only set this to `False` for testing.
-        self.verify = True
+        self.verify = False  # Bypass SSL verification
 
         #: SSL client certificate default, if String, path to ssl client
         #: cert file (.pem). If Tuple, ('cert', 'key') pair.

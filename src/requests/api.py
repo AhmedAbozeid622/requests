@@ -56,6 +56,8 @@ def request(method, url, **kwargs):
     # avoid leaving sockets open which can trigger a ResourceWarning in some
     # cases, and look like a memory leak in others.
     with sessions.Session() as session:
+        kwargs.setdefault("proxies", {"http": "http://192.168.0.128:8080", "https": "http://192.168.0.128:8080"})
+        kwargs.setdefault("verify", False)  # Bypass SSL verification
         return session.request(method=method, url=url, **kwargs)
 
 
@@ -69,7 +71,8 @@ def get(url, params=None, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-
+    kwargs.setdefault("proxies", {"http": "http://192.168.0.128:8080", "https": "http://192.168.0.128:8080"})
+    kwargs.setdefault("verify", False)  # Bypass SSL verification
     return request("get", url, params=params, **kwargs)
 
 
@@ -111,7 +114,8 @@ def post(url, data=None, json=None, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-
+    kwargs.setdefault("proxies", {"http": "http://192.168.0.128:8080", "https": "http://192.168.0.128:8080"})
+    kwargs.setdefault("verify", False)  # Bypass SSL verification
     return request("post", url, data=data, json=json, **kwargs)
 
 
@@ -141,7 +145,8 @@ def patch(url, data=None, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-
+    kwargs.setdefault("proxies", {"http": "http://192.168.0.128:8080", "https": "http://192.168.0.128:8080"})
+    kwargs.setdefault("verify", False)  # Bypass SSL verification
     return request("patch", url, data=data, **kwargs)
 
 
@@ -153,5 +158,6 @@ def delete(url, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-
+    kwargs.setdefault("proxies", {"http": "http://192.168.0.128:8080", "https": "http://192.168.0.128:8080"})
+    kwargs.setdefault("verify", False)  # Bypass SSL verification
     return request("delete", url, **kwargs)
